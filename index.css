@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-ink-950 font-sans text-milk/90 antialiased;
+    overflow-x: hidden;
+  }
+
+  section[id] {
+    scroll-margin-top: 4.5rem;
+  }
+
+  :focus-visible {
+    outline: 2px solid #8fe0ee;
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  ::selection {
+    background: rgba(143, 224, 238, 0.35);
+    color: #fbf8f1;
+  }
+}
+
+@layer components {
+  .glass {
+    @apply border border-white/10 bg-white/[0.04] backdrop-blur-md;
+  }
+
+  .grid-bg {
+    background-image:
+      linear-gradient(rgba(251, 248, 241, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(251, 248, 241, 0.06) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at center, #000 30%, transparent 75%);
+  }
+
+  .text-gradient {
+    @apply bg-gradient-to-r from-neon-cyan via-neon-blue to-neon-violet bg-clip-text text-transparent;
+  }
+}
+
+/* ---------- Animations ---------- */
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.25;
+  }
+  50% {
+    transform: translateY(-18px);
+    opacity: 0.8;
+  }
+}
+
+@keyframes circuit-flow {
+  to {
+    stroke-dashoffset: -400;
+  }
+}
+
+@keyframes glow-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.9;
+  }
+}
+
+.particle {
+  animation: float-y 7s ease-in-out infinite;
+}
+
+.circuit-line {
+  stroke-dasharray: 60 340;
+  animation: circuit-flow 9s linear infinite;
+}
+
+.glow-blob {
+  animation: glow-pulse 8s ease-in-out infinite;
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+
+  .particle,
+  .circuit-line,
+  .glow-blob {
+    animation: none !important;
+  }
+}
